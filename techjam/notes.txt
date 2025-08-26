@@ -1,0 +1,13 @@
+Usage Examples:
+Noise injection:
+python quickstart.py images/test1.png -o noisy_output.png --method noise --noise-strength 75
+
+Pixelation:
+python quickstart.py images/test1.png -o pixelated_output.png --method pixelate --pixel-size 12
+
+
+Blur (default):
+python quickstart.py images/test1.png -o blurred_output.png --method blur --blur 101
+
+Solid fill:
+python quickstart.py images/test1.png -o solid_output.png --method solid
