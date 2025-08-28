@@ -1,10 +1,10 @@
 import BottomNav from '../components/BottomNav'
-import VideoFeed from '../components/videoFeed'
+import MediaFeed from '../components/MediaFeed'
 
 function ForYouPage() {
     return (
         <div className="relative h-screen bg-black overflow-hidden">
-            <VideoFeed />
+            <MediaFeed />
             <BottomNav />
         </div>
     )

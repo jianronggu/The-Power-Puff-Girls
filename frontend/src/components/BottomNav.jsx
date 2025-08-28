@@ -1,4 +1,5 @@
 import { Home, Search, Inbox, User, Upload } from "lucide-react";
+import { Link } from "react-router-dom"
 
 function BottomNav() {
     return (
@@ -10,18 +11,22 @@ function BottomNav() {
                 <Home fill="white" className="w-6 h-6" />
                 <span className="text-xs">Home</span>
             </button>
+
             <button className="flex flex-col items-center space-y-1">
                 <Search className="w-6 h-6" />
                 <span className="text-xs">Discover</span>
             </button>
-            <button className="flex flex-col items-center space-y-1">
+
+            <Link to="/upload" className="flex flex-col items-center space-y-1 text-gray-400">
                 <Upload className="w-6 h-6" />
                 <span className="text-xs">Upload</span>
-            </button>
+            </Link>
+
             <button className="flex flex-col items-center space-y-1">
                 <Inbox className="w-6 h-6" />
                 <span className="text-xs">Inbox</span>
             </button>
+            
             <button className="flex flex-col items-center space-y-1">
                 <User className="w-6 h-6" />
                 <span className="text-xs">Profile</span>
