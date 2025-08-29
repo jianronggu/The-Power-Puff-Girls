@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDrafts } from '../contexts/DraftsContext';
 
 export default function AllImagesOverviewPage() {
-  const { drafts } = useDrafts();
+  const [showModal, setShowModal] = useState(false);
+  const { drafts, clearDrafts } = useDrafts();
   const navigate = useNavigate();
 
   if (!drafts || drafts.length === 0) {
@@ -11,7 +13,10 @@ export default function AllImagesOverviewPage() {
         <p>No drafts available.</p>
         <button
           className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded font-bold"
-          onClick={() => navigate("/upload")} // go back to previous page
+          onClick={() => {
+            clearDrafts();
+            navigate("/upload");
+          }} // go back to previous page
         >
           Back
         </button>
@@ -32,19 +37,37 @@ export default function AllImagesOverviewPage() {
     navigate("/privacy-overview", { state: { draftId: draft.draftId } });
   };
 
+  const handleConfirmClick = () => {
+    setShowModal(true);
+  };
+
+  const handleYes = () => {
+    setShowModal(false);
+    // TODO: backend posting logic
+    clearDrafts();
+    navigate("/");
+  };
+
+  const handleNo = () => {
+    setShowModal(false);
+  }
+
   return (
-    <div className="flex justify-center bg-black min-h-screen text-white py-8">
+    <div className="flex justify-center bg-black min-h-screen py-8">
       <div className="w-[390px]">
         
         {/* Back button */}
         <button
-            className="mb-4 px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded font-bold w-fit"
-            onClick={() => navigate("/upload")}
+            className="mb-4 px-3 py-2 bg-gray-700 hover:bg-gray-600 rounded font-bold w-fit text-white"
+            onClick={() => {
+                clearDrafts();
+                navigate("/upload");
+            }}
         >
             Back
         </button>
 
-        <h2 className="text-xl font-bold mb-4">Drafts Overview</h2>
+        <h2 className="text-xl font-bold mb-4 text-white">Drafts Overview</h2>
 
         {/* Carousel of drafts */}
         <div className="flex overflow-x-auto space-x-4 snap-x snap-mandatory px-2">
@@ -72,6 +95,38 @@ export default function AllImagesOverviewPage() {
             </div>
           ))}
         </div>
+
+        {/* Confirm button */}
+        <button
+        onClick={handleConfirmClick}
+        className="fixed bottom-6 right-6 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 rounded-xl font-bold shadow-lg"
+        >
+            Confirm
+        </button>
+
+        {showModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-80">
+            <h2 className="text-lg font-semibold mb-4">
+              Are you sure you want to post?
+            </h2>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={handleNo}
+                className="px-4 py-2 rounded bg-gray-300 hover:bg-gray-400"
+              >
+                No
+              </button>
+              <button
+                onClick={handleYes}
+                className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600"
+              >
+                Yes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       </div>
     </div>
   );

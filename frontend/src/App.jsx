@@ -5,6 +5,7 @@ import UploadPage from './pages/UploadPage'
 import AllImagesOverviewPage from './pages/AllPrivacyOverviewPage'
 import PrivacyOverviewPage from './pages/PrivacyOverviewPage'
 import EditMaskPage from './pages/EditMaskPage'
+import EditWithLamaPage from './pages/EditWithLamaPage'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
               <Route path="/all-drafts" element={<AllImagesOverviewPage />} />
               <Route path="/privacy-overview" element={<PrivacyOverviewPage />} />
               <Route path="/edit-mask" element={<EditMaskPage />} />
+              <Route path="/edit-mask-lama" element={<EditWithLamaPage />} />
             </Routes>
           </Router>
         </DraftsProvider>

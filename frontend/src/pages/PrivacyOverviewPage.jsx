@@ -28,20 +28,17 @@ export default function PrivacyOverviewPage() {
   const [activeCategory, setActiveCategory] = useState(categories[0]);
 
   const handleEditMask = () => {
-    navigate("/edit-mask", { state: { draftId, category: activeCategory } });
+    // navigate("/edit-mask", { state: { draftId, category: activeCategory } });
+    navigate("/edit-mask-lama", { state: { draftId, category: activeCategory } });
   }
 
-  const onConfirm = () => {}; // TODO:
+  const onConfirm = () => {
+    // TODO: some backend logic
+    navigate("/all-drafts");
+  }; 
 
   return (
     <div className="w-full max-w-[390px] mx-auto min-h-screen bg-black text-white p-4 flex flex-col">
-      {/* Back button */}
-      <button
-        className="mb-4 px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded font-bold w-max"
-        onClick={() => navigate("/all-drafts")}
-      >
-        Back
-      </button>
 
       {/* Tabs */}
       <div className="flex justify-around mb-4">
@@ -58,30 +55,32 @@ export default function PrivacyOverviewPage() {
         ))}
       </div>
 
-      {/* Preview & Actions */}
+      {/* Preview */}
       <div className="flex-1 overflow-y-auto">
-        <MediaPreviewOverlay
-          file={draft} // TODO: overlay mask over image
-          maskName={activeCategory}
-        />
-        {/* Example Action Buttons */}
-        <div className="flex gap-2 mt-4">
-          <button className="flex-1 bg-red-600 hover:bg-red-700 py-2 rounded font-bold">
-            Post with Blur
-          </button>
-          <button className="flex-1 bg-gray-600 hover:bg-gray-700 py-2 rounded font-bold" onClick={handleEditMask}>
-            Edit Mask
-          </button>
-        </div>
+        <MediaPreviewOverlay file={draft} maskName={activeCategory} />
       </div>
 
-      {/* Confirm / Next */}
-      <button
-        className="mt-4 w-full bg-green-600 hover:bg-green-700 py-2 rounded font-bold"
-        onClick={onConfirm}
-      >
-        Confirm & Continue
-      </button>
+      {/* Unified Action Bar */}
+      <div className="flex gap-2 mt-4">
+        <button
+          className="flex-1 bg-red-600 hover:bg-red-700 py-2 rounded font-bold"
+          onClick={() => navigate("/all-drafts")}
+        >
+          Cancel
+        </button>
+        <button
+          className="flex-1 bg-gray-600 hover:bg-gray-700 py-2 rounded font-bold"
+          onClick={handleEditMask}
+        >
+          Edit Mask
+        </button>
+        <button
+          className="flex-1 bg-green-600 hover:bg-green-700 py-2 rounded font-bold"
+          onClick={onConfirm}
+        >
+          Save & Continue
+        </button>
+      </div>
     </div>
   );
 }
