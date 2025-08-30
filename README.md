@@ -81,5 +81,5 @@ Screenshots:
 1. **Install dependencies**
    ```bash
    pip install -r requirements.txt
-2. Set up Google Cloud Vision
-  ![Google Cloud Vision]([https://cloud.google.com/vision/docs/ocr])
+2. [Set up Google Cloud Vision](https://cloud.google.com/vision/docs/ocr)
+
