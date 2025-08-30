@@ -48,7 +48,6 @@ Develop a system that detects visual cues in images that could leak location dat
 |-----------------------------|------------------------------------|
 | Python                      | Backend logic                      |
 | OpenCV                      | Face & object detection            |
-| Streamlit                   | FaceShield UI                      |
 | Google Cloud Vision API     | OCR & logo detection               |
 | simple-lama-inpainting      | Image inpainting (GeoShield)       |
 | FastAPI                     | Web API for GeoShield              |
