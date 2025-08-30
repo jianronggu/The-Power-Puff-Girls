@@ -2,8 +2,8 @@
 
 **Hackathon Submission for:** *Privacy Meets AI: Building a Safer Digital Future (TikTok TechJam 2025)*  
 **Team Project Title:** GeoShield & FaceShield  
-**GitHub Repo:** [github.com/yourteam/GeoShield-FaceShield](https://github.com/yourteam/GeoShield-FaceShield)  
-**Demo Video (YouTube):** [Watch Demo](https://youtube.com/your-demo-video)
+**GitHub Repo:** [github.com/jianronggu/The-Power-Puff-Girls](https://github.com/jianronggu/The-Power-Puff-Girls)  
+**Demo Video (YouTube):** [Watch Demo](https://youtu.be/yMuwkrj_k44?si=ZVUeaK2QbtOpt8W5)
 
 ---
 
@@ -68,13 +68,16 @@ pip install -r requirements.txt
 - Set the environment variable:
 3. Run the Applications
 
-### 3.GeoShield (Location Privacy Backend)
+### 3. Create a .env file
+- Store MongoDB and AWS S3 details
+
+### 4. GeoShield (Location Privacy Backend)
 ```bash
 cd backend
 uvicorn main:app --reload
 ```
 
-### 4.FaceShield (Frontend Gallery)
+### 5. FaceShield (Frontend Gallery)
 ```bash
 cd frontend
 npm install
