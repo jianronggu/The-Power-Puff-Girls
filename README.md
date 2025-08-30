@@ -46,6 +46,7 @@ Develop a system that detects visual cues in images that could leak location dat
 
 | Tool / Library              | Purpose                            |
 |-----------------------------|------------------------------------|
+| React & Tailwind CSS        | Backend logic                      |
 | Python                      | Backend logic                      |
 | OpenCV                      | Face & object detection            |
 | Google Cloud Vision API     | OCR & logo detection               |
