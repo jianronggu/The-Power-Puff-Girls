@@ -1,0 +1,8 @@
+.venv
+backend/__pycache__
+backend/archive/
+backend/input/
+backend/my_env/
+backend/outputs/
+backend/uploads/
+backend/output/

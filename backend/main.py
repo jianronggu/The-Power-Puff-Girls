@@ -4,9 +4,23 @@ import shutil
 from detect_words import remove_text_and_logos
 from pathlib import Path
 from face_blur import blur_face  
-
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# Allow frontend (Vite runs on :5173) to talk to backend (:8000)
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,          # list of allowed origins
+    allow_credentials=True,
+    allow_methods=["*"],            # allow all methods (POST, GET, etc.)
+    allow_headers=["*"],            # allow all headers
+)
 
 @app.post("/clean-image/")
 async def clean_image(file: UploadFile = File(...)):
