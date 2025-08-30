@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDrafts } from '../contexts/DraftsContext';
 
+const BACKEND = "http://localhost:8000"; // change if needed
+
 export default function AllImagesOverviewPage() {
   const [showModal, setShowModal] = useState(false);
   const { drafts, clearDrafts } = useDrafts();
@@ -24,14 +26,6 @@ export default function AllImagesOverviewPage() {
     );
   }
 
-  // Mock drafts: array of objects { id, type, src }
-//   const [drafts] = useState([
-//     { id: 1, type: "image", src: "https://picsum.photos/400/600?random=1" },
-//     { id: 2, type: "image", src: "https://picsum.photos/400/600?random=2" },
-//     { id: 3, type: "video", src: "https://www.w3schools.com/html/mov_bbb.mp4" },
-//     { id: 4, type: "image", src: "https://picsum.photos/400/600?random=3" },
-//   ]);
-
   const handleSelectDraft = (draft) => {
     // navigate to Privacy Overview page for the selected draft
     navigate("/privacy-overview", { state: { draftId: draft.draftId } });
@@ -41,11 +35,43 @@ export default function AllImagesOverviewPage() {
     setShowModal(true);
   };
 
-  const handleYes = () => {
+  const handleYes = async () => {
     setShowModal(false);
-    // TODO: backend posting logic
-    clearDrafts();
-    navigate("/");
+    // TODO: handle backend logic
+    try {
+      // map drafts to the ImageModel expected by the backend
+      const imagesPayload = drafts.map(draft => ({
+        type: draft.type,
+        url: draft.url,
+        originalUrl: draft.fileObj ? URL.createObjectURL(draft.fileObj) : null, // optional original URL
+      }));
+  
+      const response = await fetch(`${BACKEND}/posts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: 1,
+          caption: "",
+          images: imagesPayload,
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to post drafts");
+      }
+  
+      const data = await response.json();
+      console.log("Posted successfully:", data);
+  
+      // clear drafts and navigate home
+      clearDrafts();
+      navigate("/");
+    } catch (err) {
+      console.error(err);
+      alert("Error posting drafts. Please try again.");
+    }
   };
 
   const handleNo = () => {
@@ -74,15 +100,21 @@ export default function AllImagesOverviewPage() {
           {drafts.map((draft) => (
             <div
               key={draft.draftId}
-              className="flex-shrink-0 w-[360px] h-[640px] bg-gray-800 rounded-lg relative cursor-pointer snap-center"
+              className="flex-shrink-0 w-full max-w-[390px] bg-gray-800 rounded-lg relative cursor-pointer snap-center"
               onClick={() => handleSelectDraft(draft)}
             >
               {draft.type === "image" ? (
-                <img
-                  src={draft.url}
-                  alt="draft"
-                  className="w-full h-full object-cover rounded-lg"
-                />
+                <div className="flex flex-col items-center">
+                  <img
+                      src={draft.url}
+                      alt="draft"
+                      className="w-full h-auto object-contain rounded-lg"
+                  />
+                  <p className="mt-2 text-sm text-yellow-400 text-center">
+                      Warning: this image might expose private details like location. 
+                      A safety mask has been applied for your protection. Click the image if you wish to modify it.
+                  </p>
+                </div>
               ) : (
                 <video
                   src={draft.url}

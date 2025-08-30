@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
-import blurMask from '../assets/Blur Mask.jpg';
+// import blurMask from '../assets/Blur Mask.jpg';
 
 function MediaPreviewOverlay({ file, maskName }) {
     const containerRef = useRef(null);
     // TODO: update with the bottom comment
-    const overlayMaskUrl = blurMask;
-    // const overlayMaskUrl = file.mask[maskName][0].url; 
+    // const overlayMaskUrl = blurMask;
+    const overlayMaskUrl = file.mask[maskName][0].url; 
     
     useEffect(() => {
         if (containerRef.current) {
