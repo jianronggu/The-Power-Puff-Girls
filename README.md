@@ -71,7 +71,6 @@ Screenshots:
 |--------------------|-----------------------------------|
 | Python             | Core backend                      |
 | FastAPI (optional) | Web interface                     |
-| OpenCV             | Image preprocessing               |
 | Google Cloud Vision| OCR & Logo detection              |
 | simple-lama-inpainting | Region inpainting          |
 
